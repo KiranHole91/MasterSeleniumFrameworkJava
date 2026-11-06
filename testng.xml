@@ -3,6 +3,7 @@
 <suite name="Suite">
   <listeners>
     <listener class-name="utils.TestNGListeners"/>
+    <listener class-name="utils.AnnotationTransformer"/>
   </listeners>
   <test thread-count="5" name="Test">
     <classes>
