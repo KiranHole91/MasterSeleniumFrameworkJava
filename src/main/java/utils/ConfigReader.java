@@ -26,23 +26,22 @@ public class ConfigReader {
     public String getBrowser()     {
         return props.getProperty("browser");
     }
+
     
-    public String getprivatebaseUrl()     { return props.getProperty("privatebaseUrl"); }
-    
-    public long getImplicitWait()  { return Long.parseLong(props.getProperty("implicitWait")); }
+    public long getImplicitWait()  {
+        return Long.parseLong(props.getProperty("implicitWait"));
+    }
+
+    public long getExplicitWait() {
+        return Long.parseLong(props.getProperty("explicitWait"));
+    }
     
     public String getbaseUrl()     { return props.getProperty("baseUrl"); }
     
     public String getUsername()    { return props.getProperty("username"); }
     
     public String getPassword()    { return props.getProperty("password"); }
-    
-    public String getVAXIP()    { return props.getProperty("vaxIP"); }
-    
-    public String getVAXuname()    { return props.getProperty("vaxusername"); }
-    
-    public String getVAXpassword()    { return props.getProperty("vaxpassword"); }
-	
+
 	
 	
 	
