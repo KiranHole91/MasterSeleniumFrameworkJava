@@ -23,6 +23,15 @@ public class NotificationsTest extends BaseClass
 		test.pass("Templates page is opened successfully.");
 	}
 	
+	@Test(priority = 2)
+	public void verifyOpeningOfSegmentsPage() 
+	{
+		test = ExtentReportManager.createTest("Test Case to open Segments page.");   // to set the test case name in reports.
+		notifications.openSegmentsPage();
+		test.info("Click On Segments tab.");
+		Assert.assertEquals(true, notifications.SegmentsPageHeader.isDisplayed(), "Segments page is opened.");
+		test.pass("Segments page is opened successfully.");
+	
 
 	
 	
