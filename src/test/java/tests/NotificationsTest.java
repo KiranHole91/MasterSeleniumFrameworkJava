@@ -31,6 +31,16 @@ public class NotificationsTest extends BaseClass
 		test.info("Click On Segments tab.");
 		Assert.assertEquals(true, notifications.SegmentsPageHeader.isDisplayed(), "Segments page is opened.");
 		test.pass("Segments page is opened successfully.");
+			
+	
+	@Test(priority = 3)
+	public void verifyOpeningOfCampaignsPage() 
+	{
+		test = ExtentReportManager.createTest("Test Case to open Campaigns page.");   // to set the test case name in reports.
+		notifications.openCampaignsPage();
+		test.info("Click On Campaigns tab.");
+		Assert.assertEquals(true, notifications.CampaignsPageHeader.isDisplayed(), "Campaigns page is opened.");
+		test.pass("Campaigns page is opened successfully.");
 	
 
 	
