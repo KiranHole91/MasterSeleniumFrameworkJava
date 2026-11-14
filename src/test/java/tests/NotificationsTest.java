@@ -52,6 +52,18 @@ public class NotificationsTest extends BaseClass
 		test.pass("Stats page is opened successfully.");
 	}
 	
+		@Test(priority = 5)
+	public void verifyOpeningOfAnnouncementPage() 
+	{
+		test = ExtentReportManager.createTest("Test Case to open Announcement page.");   // to set the test case name in reports.
+		notifications.openAnnounsmentsPage();
+		test.info("Click On Announcement tab.");
+		Assert.assertEquals(true, notifications.AnnouncementsPageHeader.isDisplayed(), "Announcement page is opened.");
+		test.pass("Announcement page is opened successfully.");
+	}
+	
+	
+	
 
 	
 	
