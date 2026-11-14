@@ -2,7 +2,6 @@ package tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
 import baseClass.BaseClass;
 import pages.NotificationsPage;
 import utils.ExtentReportManager;
@@ -10,7 +9,6 @@ import utils.ExtentReportManager;
 public class NotificationsTest extends BaseClass
 {	
 	public NotificationsPage notifications;
-	
 
 	@Test(priority = 1)
 	public void verifyOpeningOfTemplatesPage() 
@@ -31,6 +29,7 @@ public class NotificationsTest extends BaseClass
 		test.info("Click On Segments tab.");
 		Assert.assertEquals(true, notifications.SegmentsPageHeader.isDisplayed(), "Segments page is opened.");
 		test.pass("Segments page is opened successfully.");
+	}
 			
 	
 	@Test(priority = 3)
@@ -41,6 +40,17 @@ public class NotificationsTest extends BaseClass
 		test.info("Click On Campaigns tab.");
 		Assert.assertEquals(true, notifications.CampaignsPageHeader.isDisplayed(), "Campaigns page is opened.");
 		test.pass("Campaigns page is opened successfully.");
+	}
+	
+		@Test(priority = 4)
+	public void verifyOpeningOfStatsPage() 
+	{
+		test = ExtentReportManager.createTest("Test Case to open Stats page.");   // to set the test case name in reports.
+		notifications.openStatsPage();
+		test.info("Click On Stats tab.");
+		Assert.assertEquals(true, notifications.StatsPageHeader.isDisplayed(), "Stats page is opened.");
+		test.pass("Stats page is opened successfully.");
+	}
 	
 
 	
