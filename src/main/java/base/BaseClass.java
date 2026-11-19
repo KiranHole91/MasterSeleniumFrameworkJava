@@ -80,8 +80,17 @@ public class BaseClass {
 			test.fail("Test Failed. Check Screenshot- ", MediaEntityBuilder.createScreenCaptureFromPath(screenshotPath).build());
 		}
 	}
-	
-	
-	
+
+
+	@AfterSuite
+	public void tearDownReport() {
+		if (driver != null) {
+			driver.quit();
+			Log.info("Closing browser");
+		}
+		extent.flush();
+		String reportPath = ExtentReportManager.reportPath;
+		EmailUtils.sendTestReport(reportPath);
+	}
 
 }
