@@ -71,6 +71,15 @@ public class BaseClass {
 		   
 	}
 
+	@AfterMethod
+	public void tearDown(ITestResult result)
+	{
+		if (result.getStatus() == ITestResult.FAILURE)
+		{
+			String screenshotPath = ExtentReportManager.capctureScreenshot(driver, "Test case failure");
+			test.fail("Test Failed. Check Screenshot- ", MediaEntityBuilder.createScreenCaptureFromPath(screenshotPath).build());
+		}
+	}
 	
 	
 	
