@@ -40,7 +40,22 @@
             <artifactId>poi</artifactId>
             <version>5.5.1</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.aventstack</groupId>
+            <artifactId>extentreports</artifactId>
+            <version>5.1.2</version>
+        </dependency>
+
+        <!-- Source: https://mvnrepository.com/artifact/org.apache.poi/poi -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>6.0.0</version>
+        </dependency>
     </dependencies>
+
+
 
     <build>
         <plugins>
