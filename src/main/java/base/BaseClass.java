@@ -29,47 +29,87 @@ import utils.ExtentReportManager;
 import utils.Log;
 
 public class BaseClass {
-	
+
 	protected static WebDriver driver ;
 	protected ConfigReader config = new ConfigReader();
 	protected static ExtentReports extent ;    // to create a test case execution report.
 	protected static ExtentTest test;    // to store the testcase details.
-	
-    @BeforeSuite
+
+	@BeforeSuite
 	public void setUpReport()
 	{
 		extent = ExtentReportManager.getReportInstance();
 	}
-	
+
+
+
 	@BeforeSuite
 	public void setup()
-	{ 
-		   ChromeOptions options = new ChromeOptions();
-	       options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
-	       options.setExperimentalOption("useAutomationExtension", false);
-	       options.addArguments("--disable-blink-features=AutomationControlled");  // These line are to handle chrom is being handled pop up message.
-	       
-	       Map<String, Object> prefs = new HashMap<>();
-	       prefs.put("credentials_enable_service", false);
-	       prefs.put("profile.password_manager_enabled", false);
-	       options.setExperimentalOption("prefs", prefs);   // These lines are for handling Save password pop up.
-	       
-	       Log.info("Starting Webdriver...");
-		   driver = new ChromeDriver(options);
-		   Log.info("Opening Chrome browser");
-		   driver.manage().window().maximize();
-		   Log.info("Chrome browser maximized");
-		   driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(config.getImplicitWait()));
-		   driver.get(config.getprivatebaseUrl());
-		   Log.info("Launched Admin portal");
+	{
+		ChromeOptions options = new ChromeOptions();
+		options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
+		options.setExperimentalOption("useAutomationExtension", false);
+		options.addArguments("--disable-blink-features=AutomationControlled");  // These line are to handle chrom is being handled pop up message.
 
-		   
-		   LoginPage login = new LoginPage(driver);
-		   login.enterUserName(config.getUsername());
-		   login.enterPassword(config.getPassword());
-		   login.clickOnSubmitButton();
-		   
+		Map<String, Object> prefs = new HashMap<>();
+		prefs.put("credentials_enable_service", false);
+		prefs.put("profile.password_manager_enabled", false);
+		options.setExperimentalOption("prefs", prefs);   // These lines are for handling Save password pop up.
+
+		Log.info("Starting Webdriver...");
+		driver = new ChromeDriver(options);
+		Log.info("Opening Chrome browser");
+		driver.manage().window().maximize();
+		Log.info("Chrome browser maximized");
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(config.getImplicitWait()));
+		driver.get(config.getprivatebaseUrl());
+		Log.info("Launched Admin portal");
+
+
+		LoginPage login = new LoginPage(driver);
+		login.enterUserName(config.getUsername());
+		login.enterPassword(config.getPassword());
+		login.clickOnSubmitButton();
+
 	}
+
+
+
+
+
+	public List<String> changeListOfWebElementsToListOfStrings(List<WebElement> WebElementList)
+	{
+		try { Thread.sleep(1500); 	}   catch (InterruptedException e) { e.printStackTrace(); 	}
+		List<String> ListofStrings = new ArrayList<>();
+		for (WebElement element : WebElementList)
+		{
+			ListofStrings.add(element.getText());
+		}
+		return ListofStrings ;
+	}
+
+
+	public static void wait(int duration)
+	{
+		try {  Thread.sleep(duration); } catch (InterruptedException e) { e.printStackTrace(); 	}
+	}
+
+
+	public static void JSclick(WebElement element)
+	{
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("arguments[0].click();", element);
+	}
+
+
+
+
+	public void logout()
+	{
+		driver.findElement(By.xpath("//button[contains(@id, 'radix')]")).click();
+		driver.findElement(By.xpath("//div[text()='Log out']")).click();
+	}
+
 
 	@AfterMethod
 	public void tearDown(ITestResult result)
@@ -83,13 +123,15 @@ public class BaseClass {
 
 
 	@AfterSuite
-	public void tearDownReport() {
-		if (driver != null) {
+	public void tearDownReport()
+	{
+		if (driver != null)
+		{
 			driver.quit();
 			Log.info("Closing browser");
 		}
 		extent.flush();
-		String reportPath = ExtentReportManager.reportPath;
+		String reportPath = ExtentReportManager.reportPath ;
 		EmailUtils.sendTestReport(reportPath);
 	}
 
